@@ -6,12 +6,13 @@ local S = mobs.intllib
 mobs:register_mob("prehistoric_life:tyrannosaurus", {
 	type = "tyrannosaurus",
 	passive = false,
+        attack_animals = true,
 	attack_type = "dogfight",
-	hp_min = 86,
-	hp_max = 91,
-        damage = 18,
-        reach = 4,
-	armor = 120,
+	hp_min = 87,
+	hp_max = 94,
+        damage = 19,
+        reach = 5,
+	armor = 110,
 	collisionbox = {-1.3, -1.3, -1.3, 1.3, 1.2, 1.3},
 	visual = "mesh",
 	mesh = "prehistoric_life_tyrannosaurus.b3d",
@@ -47,14 +48,6 @@ mobs:register_mob("prehistoric_life:tyrannosaurus", {
 	},
 	view_range = 9,
 
-	on_rightclick = function(self, clicker)
-		tool = clicker:get_wielded_item()
-		if tool:get_name() == "mobs:meat_raw" then
-			clicker:get_inventory():remove_item("main", "mobs:meat_raw 32")
-			minetest.add_entity(self.object:getpos(), "prehistoric_life:tyrannosaurus_tamed")
-			self.object:remove()
-		end
-	end,
 })
 
 mobs:register_egg("prehistoric_life:tyrannosaurus", S("Tyrannosaurus"), "prehistoric_life_egg.png", 0)

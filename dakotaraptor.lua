@@ -6,6 +6,7 @@ local S = mobs.intllib
 mobs:register_mob("prehistoric_life:dakotaraptor", {
 	type = "dakotaraptor",
 	passive = false,
+        attack_animals = true,
 	attack_type = "dogfight",
 	hp_min = 32,
 	hp_max = 35,
@@ -47,14 +48,6 @@ mobs:register_mob("prehistoric_life:dakotaraptor", {
 	},
 	view_range = 9,
 
-	on_rightclick = function(self, clicker)
-		tool = clicker:get_wielded_item()
-		if tool:get_name() == "mobs:meat_raw" then
-			clicker:get_inventory():remove_item("main", "mobs:meat_raw 5")
-			minetest.add_entity(self.object:getpos(), "prehistoric_life:dakotaraptor_tamed")
-			self.object:remove()
-		end
-	end,
 })
 
 mobs:register_egg("prehistoric_life:dakotaraptor", S("Dakotaraptor"), "prehistoric_life_egg.png", 0)

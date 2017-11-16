@@ -46,12 +46,10 @@ mobs:register_mob("prehistoric_life:ornithomimus", {
 	view_range = 5,
 
 	on_rightclick = function(self, clicker)
-		tool = clicker:get_wielded_item()
-		if tool:get_name() == "farming:wheat" then
-			clicker:get_inventory():remove_item("main", "farming:wheat 7")
-			minetest.add_entity(self.object:getpos(), "prehistoric_life:ornithomimus_tamed")
-			self.object:remove()
-		end
+
+		if mobs:feed_tame(self, clicker, 8, true, true) then return end
+		if mobs:protect(self, clicker) then return end
+		if mobs:capture_mob(self, clicker, 10, 20, 30, false, nil) then return end
 	end,
 })
 

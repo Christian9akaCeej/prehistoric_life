@@ -3,35 +3,37 @@ local S = mobs.intllib
 
 
 
-mobs:register_mob("prehistoric_life:anzu", {
+mobs:register_mob("prehistoric_life:pinacosaurus", {
 	type = "animal",
 	passive = false,
-	hp_min = 25,
-	hp_max = 29,
-        damage = 6,
-        reach = 4,
-	armor = 120,
-	collisionbox = {-0.8, -0.8, -0.8, 0.8, 0.5, 0.8},
+	attack_type = "dogfight",
+	hp_min = 68,
+	hp_max = 72,
+        damage = 8,
+        reach = 6,
+	armor = 75,
+	visual_size = {x=0.55, y=0.55},
+	collisionbox = {-0.8, -0.8, -0.8, 0.8, 0.2, 0.8},
 	visual = "mesh",
-	mesh = "prehistoric_life_anzu.b3d",
+	mesh = "prehistoric_life_pinacosaurus.b3d",
 	textures = {
-		{"prehistoric_life_anzu_male.png"},
-                {"prehistoric_life_anzu_female.png"},
+		{"prehistoric_life_pinacosaurus_male.png"},
+                {"prehistoric_life_pinacosaurus_female.png"},
 	},
 	child_texture = {
-		{"prehistoric_life_anzu_child.png"},
+		{"prehistoric_life_pinacosaurus_child.png"},
 	},
 	makes_footstep_sound = true,
 	sounds = {
-		random = "prehistoric_life_anzu",
+		random = "prehistoric_life_ankylosaurus",
 	},
-	walk_velocity = 2,
-	run_velocity = 4,
-	runaway = true,
+	walk_velocity = 1,
+	run_velocity = 2,
+	runaway = false,
 	drops = {
-		{name = "mobs:meat_raw", chance = 1, min = 2, max = 4},
+		{name = "mobs:meat_raw", chance = 1, min = 7, max = 11},
 	},
-	water_damage = 0,
+	water_damage = 7,
 	lava_damage = 9,
 	light_damage = 0,
 	fall_damage = 18,
@@ -44,7 +46,7 @@ mobs:register_mob("prehistoric_life:anzu", {
 		walk_start = 1,
 		walk_end = 40,
 	},
-	follow = {"farming:wheat", "mobs:meat_raw"},
+	follow = {"farming:wheat", "group:leaves"},
 	view_range = 5,
 
 	on_rightclick = function(self, clicker)
@@ -55,12 +57,12 @@ mobs:register_mob("prehistoric_life:anzu", {
 	end,
 })
 
-mobs:register_egg("prehistoric_life:anzu", S("Anzu"), "prehistoric_life_egg.png", 0)
+mobs:register_egg("prehistoric_life:pinacosaurus", S("Pinacosaurus"), "prehistoric_life_egg.png", 0)
 
 -- egg entity
 
-minetest.register_craftitem("prehistoric_life:anzu_hatched", {
-	description = "Anzu Egg (Hatched)",
+minetest.register_craftitem("prehistoric_life:pinacosaurus_hatched", {
+	description = "Pinacosaurus Egg (Hatched)",
 	inventory_image = "prehistoric_life_egg_hatched.png",
 	wield_image = "prehistoric_life_egg_hatched.png",
 	stack_max = 1,
@@ -68,7 +70,7 @@ minetest.register_craftitem("prehistoric_life:anzu_hatched", {
 		local pos1=minetest.get_pointed_thing_position(pointed_thing, true)
 		pos1.y=pos1.y+1.5
 		core.after(0.1, function()
-		mob = minetest.add_entity(pos1, "prehistoric_life:anzu")
+		mob = minetest.add_entity(pos1, "prehistoric_life:pinacosaurus")
                 ent2 = mob:get_luaentity()
 
 		mob:set_properties({

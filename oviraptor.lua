@@ -3,7 +3,7 @@ local S = mobs.intllib
 
 
 
-mobs:register_mob("prehistoric_life:anzu", {
+mobs:register_mob("prehistoric_life:oviraptor", {
 	type = "animal",
 	passive = false,
 	hp_min = 25,
@@ -11,15 +11,16 @@ mobs:register_mob("prehistoric_life:anzu", {
         damage = 6,
         reach = 4,
 	armor = 120,
-	collisionbox = {-0.8, -0.8, -0.8, 0.8, 0.5, 0.8},
+	visual_size = {x=0.75, y=0.75},
+	collisionbox = {-0.7, -0.7, -0.7, 0.7, 0.5, 0.7},
 	visual = "mesh",
-	mesh = "prehistoric_life_anzu.b3d",
+	mesh = "prehistoric_life_oviraptor.b3d",
 	textures = {
-		{"prehistoric_life_anzu_male.png"},
-                {"prehistoric_life_anzu_female.png"},
+		{"prehistoric_life_oviraptor_male.png"},
+                {"prehistoric_life_oviraptor_female.png"},
 	},
 	child_texture = {
-		{"prehistoric_life_anzu_child.png"},
+		{"prehistoric_life_oviraptor_child.png"},
 	},
 	makes_footstep_sound = true,
 	sounds = {
@@ -55,12 +56,12 @@ mobs:register_mob("prehistoric_life:anzu", {
 	end,
 })
 
-mobs:register_egg("prehistoric_life:anzu", S("Anzu"), "prehistoric_life_egg.png", 0)
+mobs:register_egg("prehistoric_life:oviraptor", S("Oviraptor"), "prehistoric_life_egg.png", 0)
 
 -- egg entity
 
-minetest.register_craftitem("prehistoric_life:anzu_hatched", {
-	description = "Anzu Egg (Hatched)",
+minetest.register_craftitem("prehistoric_life:oviraptor_hatched", {
+	description = "Oviraptor Egg (Hatched)",
 	inventory_image = "prehistoric_life_egg_hatched.png",
 	wield_image = "prehistoric_life_egg_hatched.png",
 	stack_max = 1,
@@ -68,7 +69,7 @@ minetest.register_craftitem("prehistoric_life:anzu_hatched", {
 		local pos1=minetest.get_pointed_thing_position(pointed_thing, true)
 		pos1.y=pos1.y+1.5
 		core.after(0.1, function()
-		mob = minetest.add_entity(pos1, "prehistoric_life:anzu")
+		mob = minetest.add_entity(pos1, "prehistoric_life:oviraptor")
                 ent2 = mob:get_luaentity()
 
 		mob:set_properties({

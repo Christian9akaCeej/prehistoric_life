@@ -45,15 +45,14 @@ mobs:register_mob("prehistoric_life:anatosaurus", {
 		walk_start = 1,
 		walk_end = 40,
 	},
-	view_range = 9,
+	follow = {"farming:wheat", "group:leaves"},
+	view_range = 5,
 
 	on_rightclick = function(self, clicker)
-		tool = clicker:get_wielded_item()
-		if tool:get_name() == "default:jungle_grass" then
-			clicker:get_inventory():remove_item("main", "default:jungle_grass 3")
-			minetest.add_entity(self.object:getpos(), "prehistoric_life:anatosaurus_tamed")
-			self.object:remove()
-		end
+
+		if mobs:feed_tame(self, clicker, 8, true, true) then return end
+		if mobs:protect(self, clicker) then return end
+		if mobs:capture_mob(self, clicker, 10, 20, 30, false, nil) then return end
 	end,
 })
 

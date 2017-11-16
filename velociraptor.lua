@@ -3,64 +3,60 @@ local S = mobs.intllib
 
 
 
-mobs:register_mob("prehistoric_life:anzu", {
-	type = "animal",
+mobs:register_mob("prehistoric_life:velociraptor", {
+	type = "dakotaraptor",
 	passive = false,
-	hp_min = 25,
-	hp_max = 29,
-        damage = 6,
-        reach = 4,
+        attack_animals = true,
+	attack_type = "dogfight",
+	hp_min = 9,
+	hp_max = 16,
+        damage = 3,
+        reach = 1,
 	armor = 120,
-	collisionbox = {-0.8, -0.8, -0.8, 0.8, 0.5, 0.8},
+	visual_size = {x=0.40, y=0.40},
+	collisionbox = {-0.3, -0.3, -0.3, 0.3, 0.3, 0.3},
 	visual = "mesh",
-	mesh = "prehistoric_life_anzu.b3d",
+	mesh = "prehistoric_life_velociraptor.b3d",
 	textures = {
-		{"prehistoric_life_anzu_male.png"},
-                {"prehistoric_life_anzu_female.png"},
+		{"prehistoric_life_velociraptor_male.png"},
+                {"prehistoric_life_velociraptor_female.png"},
 	},
 	child_texture = {
-		{"prehistoric_life_anzu_child.png"},
+		{"prehistoric_life_velociraptor_child.png"},
 	},
 	makes_footstep_sound = true,
 	sounds = {
-		random = "prehistoric_life_anzu",
+		random = "prehistoric_life_dakotaraptor",
 	},
-	walk_velocity = 2,
+	walk_velocity = 3,
 	run_velocity = 4,
 	runaway = true,
 	drops = {
-		{name = "mobs:meat_raw", chance = 1, min = 2, max = 4},
+		{name = "mobs:meat_raw", chance = 1, min = 1, max = 3},
 	},
 	water_damage = 0,
-	lava_damage = 9,
+	lava_damage = 3,
 	light_damage = 0,
-	fall_damage = 18,
+	fall_damage = 2,
 	fall_speed = -8,
-	fear_height = 6,
+	fear_height = 24,
 	animation = {
 		speed_normal = 15,
-		stand_start = 50,
-		stand_end = 160, -- 20
+		stand_start = 40,
+		stand_end = 150, -- 20
 		walk_start = 1,
-		walk_end = 40,
+		walk_end = 30,
 	},
-	follow = {"farming:wheat", "mobs:meat_raw"},
-	view_range = 5,
+	view_range = 9,
 
-	on_rightclick = function(self, clicker)
-
-		if mobs:feed_tame(self, clicker, 8, true, true) then return end
-		if mobs:protect(self, clicker) then return end
-		if mobs:capture_mob(self, clicker, 10, 20, 30, false, nil) then return end
-	end,
 })
 
-mobs:register_egg("prehistoric_life:anzu", S("Anzu"), "prehistoric_life_egg.png", 0)
+mobs:register_egg("prehistoric_life:velociraptor", S("Velociraptor"), "prehistoric_life_egg.png", 0)
 
 -- egg entity
 
-minetest.register_craftitem("prehistoric_life:anzu_hatched", {
-	description = "Anzu Egg (Hatched)",
+minetest.register_craftitem("prehistoric_life:velociraptor_hatched", {
+	description = "Velociraptor Egg (Hatched)",
 	inventory_image = "prehistoric_life_egg_hatched.png",
 	wield_image = "prehistoric_life_egg_hatched.png",
 	stack_max = 1,
@@ -68,7 +64,7 @@ minetest.register_craftitem("prehistoric_life:anzu_hatched", {
 		local pos1=minetest.get_pointed_thing_position(pointed_thing, true)
 		pos1.y=pos1.y+1.5
 		core.after(0.1, function()
-		mob = minetest.add_entity(pos1, "prehistoric_life:anzu")
+		mob = minetest.add_entity(pos1, "prehistoric_life:velociraptor")
                 ent2 = mob:get_luaentity()
 
 		mob:set_properties({

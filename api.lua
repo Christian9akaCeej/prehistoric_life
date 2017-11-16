@@ -1227,11 +1227,10 @@ end
 
 
 -- monster find someone to attack
-local monster_attack = function(self)
+local tyrannosaurus_attack = function(self)
 
-	if self.type ~= "monster"
+	if self.type ~= "tyrannosaurus"
 	or not damage_enabled
-	or creative
 	or self.state == "attack"
 	or day_docile(self) then
 		return
@@ -1268,7 +1267,7 @@ local monster_attack = function(self)
 
 		-- find specific mob to attack, failing that attack player/npc/animal
 		if specific_attack(self.specific_attack, name)
-		and (type == "player" or type == "npc"
+		and (type == "player" or type == "npc" or type == "monster"
 			or (type == "animal" and self.attack_animals == true)) then
 
 			s = self.object:get_pos()
@@ -1300,6 +1299,77 @@ local monster_attack = function(self)
 	end
 end
 
+local dakotaraptor_attack = function(self)
+
+	if self.type ~= "dakotaraptor"
+	or not damage_enabled
+	or self.state == "attack"
+	or day_docile(self) then
+		return
+	end
+
+	local s = self.object:get_pos()
+	local p, sp, dist
+	local player, obj, min_player
+	local type, name = "", ""
+	local min_dist = self.view_range + 1
+	local objs = minetest.get_objects_inside_radius(s, self.view_range)
+
+	for n = 1, #objs do
+
+		if objs[n]:is_player() then
+
+			if mobs.invis[ objs[n]:get_player_name() ] then
+
+				type = ""
+			else
+				player = objs[n]
+				type = "player"
+				name = "player"
+			end
+		else
+			obj = objs[n]:get_luaentity()
+
+			if obj then
+				player = obj.object
+				type = obj.type
+				name = obj.name or ""
+			end
+		end
+
+		-- find specific mob to attack, failing that attack player/npc/animal
+		if specific_attack(self.specific_attack, name)
+		and (type == "player" or type == "npc" or type == "monster"
+			or (type == "animal" and self.attack_animals == true)) then
+
+			s = self.object:get_pos()
+			p = player:get_pos()
+			sp = s
+
+			-- aim higher to make looking up hills more realistic
+			p.y = p.y + 1
+			sp.y = sp.y + 1
+
+			dist = get_distance(p, s)
+
+			if dist < self.view_range then
+			-- field of view check goes here
+
+				-- choose closest player to attack
+				if line_of_sight(self, sp, p, 2) == true
+				and dist < min_dist then
+					min_dist = dist
+					min_player = player
+				end
+			end
+		end
+	end
+
+	-- attack player
+	if min_player then
+		do_attack(self, min_player)
+	end
+end
 
 -- npc, find closest monster to attack
 local npc_attack = function(self)
@@ -2619,7 +2689,9 @@ local mob_step = function(self, dtime)
 		do_env_damage(self)
 	end
 
-	monster_attack(self)
+	tyrannosaurus_attack(self)
+
+	dakotaraptor_attack(self)
 
 	npc_attack(self)
 
